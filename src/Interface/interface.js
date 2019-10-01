@@ -1,12 +1,13 @@
 import React from "react";
 import { Typography, Container, Paper, Button } from "@material-ui/core";
+import { produceMelody } from '../MelodyProduction/MelodyProduction';
 import './interface.css';
 
 const testArray = [];
 
-function addNumber() {
-    testArray.push(1);
-}
+// function addNumber() {
+//     testArray.push(1);
+// }
 
 function printContents() {
     console.log(testArray)
@@ -16,7 +17,7 @@ function Generate() {
     return (
         <div>
             <Typography variant='h1' component='h1'>Generate</Typography>
-            <Button onClick={addNumber}>Add</Button>
+            <Button onClick={produceMelody}>ProduceMelody</Button>
             <Button onClick={printContents}>Print</Button>
         </div>
 
