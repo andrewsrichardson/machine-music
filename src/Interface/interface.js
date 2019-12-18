@@ -1,24 +1,13 @@
 import React from "react";
 import { Typography, Container, Paper, Button } from "@material-ui/core";
-import { produceMelody } from '../MelodyProduction/MelodyProduction';
+import { produceMelody }  from '../MelodyProduction/MelodyProduction';
 import './interface.css';
-
-const testArray = [];
-
-// function addNumber() {
-//     testArray.push(1);
-// }
-
-function printContents() {
-    console.log(testArray)
-}
 
 function Generate() {
     return (
         <div>
             <Typography variant='h1' component='h1'>Generate</Typography>
             <Button onClick={produceMelody}>ProduceMelody</Button>
-            <Button onClick={printContents}>Print</Button>
         </div>
 
     )
@@ -52,14 +41,11 @@ function About(){
 
 
 export default function Interface(props){
-
     switch(props.view){
         case 0:
             return <Generate />
-
         case 1:
             return <Train />
-
         case 2:
             return <About />
         default:

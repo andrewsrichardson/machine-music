@@ -3,7 +3,6 @@ import './App.css';
 import TitleCard from './TitleCard/TitleCard';
 import NavTabs from './NavTabs/NavTabs';
 import Interface from './Interface/interface';
-import Visualiser from './Playlist/Playlist';
 
 
 
@@ -21,7 +20,6 @@ function App() {
       <div className="Body">
         <NavTabs view= {view} updateView= {setView}/>
         <Interface view= {view}></Interface>
-        <Visualiser/>
       </div> 
       <div className="Footer">
 
