@@ -1,39 +1,48 @@
-const mm  = require('@magenta/music');
+const mm = require("@magenta/music");
 
-const melody = new mm.MusicRNN('https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/melody_rnn');
+const melody = new mm.MusicRNN(
+  "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/melody_rnn"
+);
 const player = new mm.Player();
 
+let seqList = [];
 
 export function produceMelody() {
+  const STEPS_PER_CHORD = 2;
+  const STEPS_PER_PROG = 4 * STEPS_PER_CHORD;
+  const NUM_REPS = 4;
 
-    const STEPS_PER_CHORD = 2;
-    const STEPS_PER_PROG = 4 * STEPS_PER_CHORD;
-    const NUM_REPS = 4;
+  const seq = {
+    quantizationInfo: { stepsPerQuarter: 4 },
+    notes: [],
+    totalQuantizedSteps: 1
+  };
 
-
-    const seq = { 
-        quantizationInfo: {stepsPerQuarter: 4},
-        notes: [],
-        totalQuantizedSteps: 1
-    };  
-
-    melody.continueSequence(seq, STEPS_PER_PROG + (NUM_REPS-1)*STEPS_PER_PROG - 1, 0.9)
-        .then((contSeq) => {
-        contSeq.notes.forEach((note) => {
-            note.quantizedStartStep += 1;
-            note.quantizedEndStep += 1;
-            seq.notes.push(note);
+  for (let i = 0; i < 3; i++) {
+    seqList[i] = melody
+      .continueSequence(
+        seq,
+        STEPS_PER_PROG + (NUM_REPS - 1) * STEPS_PER_PROG - 1,
+        0.9
+      )
+      .then(contSeq => {
+        contSeq.notes.forEach(note => {
+          note.quantizedStartStep += 1;
+          note.quantizedEndStep += 1;
+          seq.notes.push(note);
         });
-    });
-    
+      });
 
-    
-    melody.initialize().then(() => {
-        console.log(seq)
-        player.start(seq, 140);
-        console.log(player.getPlayState)
-        console.log("playing..")
-    })
+    // Promise.allSettled(seqList).then(() => {
+    //   console.log(seqList);
+    // });
+  }
+}
+
+export function Play() {
+  melody.initialize().then(() => {
+    player.start(seqList[0]);
+  });
 }
 
 // // // Number of steps to play each chord.
@@ -54,15 +63,15 @@ export function produceMelody() {
 // // Sample over chord progression.
 // const playOnce = () => {
 //   const chords = currentChords;
-  
+
 //   // Prime with root note of the first chord.
 //   const root = mm.chords.ChordSymbols.root(chords[0]);
-//   const seq = { 
+//   const seq = {
 //     quantizationInfo: {stepsPerQuarter: 4},
 //     notes: [],
 //     totalQuantizedSteps: 1
-//   };  
-  
+//   };
+
 //   document.getElementById('message').innerText = 'Improvising over: ' + chords;
 //   model.continueSequence(seq, STEPS_PER_PROG + (NUM_REPS-1)*STEPS_PER_PROG - 1, 0.9, chords)
 //     .then((contSeq) => {
@@ -72,9 +81,9 @@ export function produceMelody() {
 //         note.quantizedEndStep += 1;
 //         seq.notes.push(note);
 //       });
-    
+
 //       const roots = chords.map(mm.chords.ChordSymbols.root);
-//       for (var i=0; i<NUM_REPS; i++) { 
+//       for (var i=0; i<NUM_REPS; i++) {
 //         // Add the bass progression.
 //         seq.notes.push({
 //           instrument: 1,
@@ -103,12 +112,12 @@ export function produceMelody() {
 //           pitch: 36 + roots[3],
 //           quantizedStartStep: i*STEPS_PER_PROG + 3*STEPS_PER_CHORD,
 //           quantizedEndStep: i*STEPS_PER_PROG + 4*STEPS_PER_CHORD
-//         });        
+//         });
 //       }
-    
+
 //       // Set total sequence length.
 //       seq.totalQuantizedSteps = STEPS_PER_PROG * NUM_REPS;
-    
+
 //       // Play it!
 //       player.start(seq, 120).then(() => {
 //         playing = false;
@@ -116,7 +125,7 @@ export function produceMelody() {
 //         checkChords();
 //       });
 //     })
-// }  
+// }
 
 // // Check chords for validity and highlight invalid chords.
 // const checkChords = () => {
@@ -125,8 +134,8 @@ export function produceMelody() {
 //     document.getElementById('chord2').value,
 //     document.getElementById('chord3').value,
 //     document.getElementById('chord4').value
-//   ]; 
- 
+//   ];
+
 //   const isGood = (chord) => {
 //     if (!chord) {
 //       return false;
@@ -139,7 +148,7 @@ export function produceMelody() {
 //       return false;
 //     }
 //   }
-  
+
 //   var allGood = true;
 //   if (isGood(chords[0])) {
 //     document.getElementById('chord1').style.color = 'black';
@@ -165,13 +174,13 @@ export function produceMelody() {
 //     document.getElementById('chord4').style.color = 'red';
 //     allGood = false;
 //   }
-  
+
 //   var changed = false;
 //   if (currentChords) {
 //     if (chords[0] !== currentChords[0]) {changed = true;}
 //     if (chords[1] !== currentChords[1]) {changed = true;}
 //     if (chords[2] !== currentChords[2]) {changed = true;}
-//     if (chords[3] !== currentChords[3]) {changed = true;}  
+//     if (chords[3] !== currentChords[3]) {changed = true;}
 //   }
 //   else {changed = true;}
 //   document.getElementById('play').disabled = !allGood || (!changed && playing);
@@ -191,9 +200,9 @@ export function produceMelody() {
 //     document.getElementById('chord1').value,
 //     document.getElementById('chord2').value,
 //     document.getElementById('chord3').value,
-//     document.getElementById('chord4').value    
+//     document.getElementById('chord4').value
 //   ];
-  
+
 //   mm.Player.tone.context.resume();
 //   player.stop();
 //   playOnce();
