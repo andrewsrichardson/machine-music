@@ -1,48 +1,57 @@
 const mm = require("@magenta/music");
 
+const player = new mm.Player();
 const melody = new mm.MusicRNN(
   "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/melody_rnn"
 );
-const player = new mm.Player();
-
+let promiseList = [];
 let seqList = [];
+let position = 1;
 
 export function produceMelody() {
-  const STEPS_PER_CHORD = 2;
-  const STEPS_PER_PROG = 4 * STEPS_PER_CHORD;
-  const NUM_REPS = 4;
-
-  const seq = {
-    quantizationInfo: { stepsPerQuarter: 4 },
-    notes: [],
-    totalQuantizedSteps: 1
-  };
-
   for (let i = 0; i < 3; i++) {
-    seqList[i] = melody
-      .continueSequence(
-        seq,
-        STEPS_PER_PROG + (NUM_REPS - 1) * STEPS_PER_PROG - 1,
-        0.9
-      )
-      .then(contSeq => {
-        contSeq.notes.forEach(note => {
-          note.quantizedStartStep += 1;
-          note.quantizedEndStep += 1;
-          seq.notes.push(note);
-        });
-      });
+    const STEPS_PER_CHORD = 2;
+    const STEPS_PER_PROG = 4 * STEPS_PER_CHORD;
+    const NUM_REPS = 4;
 
-    // Promise.allSettled(seqList).then(() => {
-    //   console.log(seqList);
-    // });
+    let seq = {
+      quantizationInfo: { stepsPerQuarter: 4 },
+      notes: [],
+      totalQuantizedSteps: 1
+    };
+
+    promiseList.push(
+      melody
+        .continueSequence(
+          seq,
+          STEPS_PER_PROG + (NUM_REPS - 1) * STEPS_PER_PROG - 1,
+          0.9
+        )
+        .then(contSeq => {
+          contSeq.notes.forEach(note => {
+            note.quantizedStartStep += 1;
+            note.quantizedEndStep += 1;
+            seq.notes.push(note);
+          });
+          seqList.push(seq);
+          console.log(seqList);
+        })
+    );
   }
+  Promise.allSettled(promiseList).then(() => {
+    player.start(seqList[0]).then(Play(position));
+  });
 }
 
-export function Play() {
-  melody.initialize().then(() => {
-    player.start(seqList[0]);
+export function Play(pos) {
+  console.log("test - pos:" + pos);
+  player.start(seqList[pos]).then(() => {
+    position = (pos + 1) % 3;
+    console.log(position);
+    Play(position);
   });
+
+  //   });
 }
 
 // // // Number of steps to play each chord.
