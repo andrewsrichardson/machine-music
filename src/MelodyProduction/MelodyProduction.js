@@ -39,15 +39,15 @@ export function produceMelody() {
     );
   }
   Promise.allSettled(promiseList).then(() => {
-    player.start(seqList[0]).then(Play(position));
+    player.start(seqList[0]).then(() => {
+      Play(position);
+    });
   });
 }
 
 export function Play(pos) {
-  console.log("test - pos:" + pos);
   player.start(seqList[pos]).then(() => {
     position = (pos + 1) % 3;
-    console.log(position);
     Play(position);
   });
 
