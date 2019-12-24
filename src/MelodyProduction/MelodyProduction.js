@@ -4,23 +4,41 @@ const player = new mm.Player();
 const melody = new mm.MusicRNN(
   "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/melody_rnn"
 );
-let promiseList = [];
 let seqList = [];
 let position = 1;
 
 export function produceMelody() {
-  for (let i = 0; i < 3; i++) {
-    const STEPS_PER_CHORD = 2;
-    const STEPS_PER_PROG = 4 * STEPS_PER_CHORD;
-    const NUM_REPS = 4;
+  const a = Generate();
+  const b = Generate();
+  const c = Generate();
+  Promise.all([a, b, c]).then(() => {
+    console.log(seqList);
+    player.start(seqList[0]).then(() => {
+      Play(position);
+    });
+  });
+}
 
-    let seq = {
-      quantizationInfo: { stepsPerQuarter: 4 },
-      notes: [],
-      totalQuantizedSteps: 1
-    };
+function Play(pos) {
+  player.start(seqList[pos]).then(() => {
+    position = (pos + 1) % 3;
+    Play(position);
+  });
+}
 
-    promiseList.push(
+function Generate() {
+  const STEPS_PER_CHORD = 2;
+  const STEPS_PER_PROG = 4 * STEPS_PER_CHORD;
+  const NUM_REPS = 4;
+
+  let seq = {
+    quantizationInfo: { stepsPerQuarter: 4 },
+    notes: [],
+    totalQuantizedSteps: 1
+  };
+
+  return new Promise((resolve, reject) => {
+    try {
       melody
         .continueSequence(
           seq,
@@ -34,26 +52,20 @@ export function produceMelody() {
             seq.notes.push(note);
           });
           seqList.push(seq);
-          console.log(seqList);
-        })
-    );
-  }
-  Promise.allSettled(promiseList).then(() => {
-    player.start(seqList[0]).then(() => {
-      Play(position);
-    });
+          resolve();
+        });
+    } catch {
+      reject(console.log("Creation of melody failed."));
+    }
   });
 }
 
-export function Play(pos) {
-  player.start(seqList[pos]).then(() => {
-    position = (pos + 1) % 3;
-    Play(position);
-  });
-
-  //   });
+export function Pause() {
+  player.pause();
 }
-
+export function Resume() {
+  player.resume();
+}
 // // // Number of steps to play each chord.
 // STEPS_PER_CHORD = 8;
 // STEPS_PER_PROG = 4 * STEPS_PER_CHORD;

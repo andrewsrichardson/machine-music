@@ -1,6 +1,10 @@
 import React from "react";
 import { Typography, Container, Paper, Button } from "@material-ui/core";
-import { produceMelody, Play } from "../MelodyProduction/MelodyProduction";
+import {
+  produceMelody,
+  Resume,
+  Pause
+} from "../MelodyProduction/MelodyProduction";
 import "./interface.css";
 
 function Generate() {
@@ -10,7 +14,8 @@ function Generate() {
         Generate
       </Typography>
       <Button onClick={produceMelody}>ProduceMelody</Button>
-      <Button onClick={Play}>Pause</Button>
+      <Button onClick={Pause}>Pause</Button>
+      <Button onClick={Resume}>Play</Button>
     </div>
   );
 }
