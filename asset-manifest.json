@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/machine-music/static/css/main.330e2d6b.chunk.css",
-    "main.js": "/machine-music/static/js/main.48bad957.chunk.js",
-    "main.js.map": "/machine-music/static/js/main.48bad957.chunk.js.map",
+    "main.js": "/machine-music/static/js/main.981aa2c4.chunk.js",
+    "main.js.map": "/machine-music/static/js/main.981aa2c4.chunk.js.map",
     "runtime-main.js": "/machine-music/static/js/runtime-main.6b173981.js",
     "runtime-main.js.map": "/machine-music/static/js/runtime-main.6b173981.js.map",
     "static/js/2.2f079d2b.chunk.js": "/machine-music/static/js/2.2f079d2b.chunk.js",
     "static/js/2.2f079d2b.chunk.js.map": "/machine-music/static/js/2.2f079d2b.chunk.js.map",
     "index.html": "/machine-music/index.html",
-    "precache-manifest.4ef37b1efd7a020b1607066cf9bbe631.js": "/machine-music/precache-manifest.4ef37b1efd7a020b1607066cf9bbe631.js",
+    "precache-manifest.b4afb7faef7fff4130502ff0efc56964.js": "/machine-music/precache-manifest.b4afb7faef7fff4130502ff0efc56964.js",
     "service-worker.js": "/machine-music/service-worker.js",
     "static/css/main.330e2d6b.chunk.css.map": "/machine-music/static/css/main.330e2d6b.chunk.css.map",
     "static/js/2.2f079d2b.chunk.js.LICENSE": "/machine-music/static/js/2.2f079d2b.chunk.js.LICENSE"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.6b173981.js",
     "static/js/2.2f079d2b.chunk.js",
     "static/css/main.330e2d6b.chunk.css",
-    "static/js/main.48bad957.chunk.js"
+    "static/js/main.981aa2c4.chunk.js"
   ]
 }
