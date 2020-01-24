@@ -1,5 +1,15 @@
-import React from "react";
-import { Typography, Container, Paper, Button } from "@material-ui/core";
+import React, { useState } from "react";
+import {
+  Typography,
+  Container,
+  Paper,
+  Button,
+  Select,
+  Input,
+  MenuItem,
+  FormControl,
+  InputLabel
+} from "@material-ui/core";
 import {
   produceMelody,
   Resume,
@@ -8,12 +18,32 @@ import {
 import "./interface.css";
 
 function Generate() {
+  const [tempo, setTempo] = useState(140);
+
+  const handleChange = event => {
+    setTempo(event.target.value);
+  };
   return (
     <div>
       <Typography variant="h1" component="h1">
         Generate
       </Typography>
-      <Button onClick={produceMelody}>ProduceMelody</Button>
+      <FormControl>
+        <InputLabel>Tempo</InputLabel>
+        <Select
+          value={tempo}
+          onChange={handleChange}
+          inputProps={{
+            tempo: "tempo"
+          }}
+        >
+          <MenuItem value={100}>100</MenuItem>
+          <MenuItem value={120}>120</MenuItem>
+          <MenuItem value={140}>140</MenuItem>
+          <MenuItem value={160}>160</MenuItem>
+        </Select>
+      </FormControl>
+      <Button onClick={() => produceMelody(tempo)}>ProduceMelody</Button>
       <Button onClick={Pause}>Pause</Button>
       <Button onClick={Resume}>Play</Button>
     </div>
