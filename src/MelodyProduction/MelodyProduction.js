@@ -7,14 +7,17 @@ const melody = new mm.MusicRNN(
 let seqList = [];
 let position = 1;
 
-export function produceMelody() {
+export function produceMelody(setLoading) {
+  setLoading(true);
   const a = Generate();
   const b = Generate();
   const c = Generate();
+
   Promise.all([a, b, c]).then(sequences => {
     sequences.forEach(currentItem => {
       seqList.push(currentItem);
     });
+    setLoading(false);
     player.start(seqList[0]).then(() => {
       Replace(0);
       Play(position);

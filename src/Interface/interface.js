@@ -17,8 +17,11 @@ import {
 } from "../MelodyProduction/MelodyProduction";
 import "./interface.css";
 import PlayController from "./playController";
+import LoadWheel from "./LoadWheel";
 
 function Generate() {
+  const [loading, setLoading] = useState(false);
+
   const [tempo, setTempo] = useState(140);
 
   const handleTempoChange = event => {
@@ -36,7 +39,7 @@ function Generate() {
     if (playerState === false) {
       setPlayerState(true);
       if (isPlayerInitiated() === false) {
-        produceMelody(tempo);
+        produceMelody(setLoading);
       }
       Resume();
     }
@@ -63,8 +66,9 @@ function Generate() {
         </Select>
       </FormControl>
       <div className="play-controller-wrapper" onClick={handlePlayerChange}>
-        <PlayController state={playerState}>Test</PlayController>
+        <PlayController state={playerState}></PlayController>
       </div>
+      <LoadWheel loading={loading}></LoadWheel>
     </div>
   );
 }
