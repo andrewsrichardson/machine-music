@@ -76,6 +76,9 @@ export function Pause() {
 export function Resume() {
   player.resume();
 }
+export function isPlayerInitiated() {
+  return player.isPlaying();
+}
 export function setPlayerTempo(tempo) {
   player.setTempo(tempo);
 }

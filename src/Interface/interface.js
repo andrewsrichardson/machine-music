@@ -3,7 +3,6 @@ import {
   Typography,
   Container,
   Paper,
-  Button,
   Select,
   MenuItem,
   FormControl,
@@ -11,19 +10,38 @@ import {
 } from "@material-ui/core";
 import {
   produceMelody,
-  Resume,
+  setPlayerTempo,
   Pause,
-  setPlayerTempo
+  Resume,
+  isPlayerInitiated
 } from "../MelodyProduction/MelodyProduction";
 import "./interface.css";
+import PlayController from "./playController";
 
 function Generate() {
   const [tempo, setTempo] = useState(140);
 
-  const handleChange = event => {
+  const handleTempoChange = event => {
     setTempo(event.target.value);
     setPlayerTempo(tempo);
   };
+
+  const [playerState, setPlayerState] = useState(false);
+
+  function handlePlayerChange() {
+    if (playerState === true) {
+      setPlayerState(false);
+      Pause();
+    }
+    if (playerState === false) {
+      setPlayerState(true);
+      if (isPlayerInitiated() === false) {
+        produceMelody(tempo);
+      }
+      Resume();
+    }
+  }
+
   return (
     <div>
       <Typography variant="h1" component="h1">
@@ -33,7 +51,7 @@ function Generate() {
         <InputLabel>Tempo</InputLabel>
         <Select
           value={tempo}
-          onChange={handleChange}
+          onChange={handleTempoChange}
           inputProps={{
             tempo: "tempo"
           }}
@@ -44,9 +62,9 @@ function Generate() {
           <MenuItem value={160}>160</MenuItem>
         </Select>
       </FormControl>
-      <Button onClick={() => produceMelody(tempo)}>ProduceMelody</Button>
-      <Button onClick={Pause}>Pause</Button>
-      <Button onClick={Resume}>Play</Button>
+      <div className="play-controller-wrapper" onClick={handlePlayerChange}>
+        <PlayController state={playerState}>Test</PlayController>
+      </div>
     </div>
   );
 }
@@ -68,10 +86,6 @@ function About() {
             Machine music was made by Andrew Richardson as a sumbission for my
             final year project.
           </Typography>
-          <Typography component="p">
-            This app uses some bullshit to convince you that I know how machine
-            learning works..
-          </Typography>
         </Paper>
       </Container>
     </div>
@@ -87,6 +101,6 @@ export default function Interface(props) {
     case 2:
       return <About />;
     default:
-      return <About />;
+      return <Generate />;
   }
 }
