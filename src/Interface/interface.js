@@ -5,7 +5,6 @@ import {
   Paper,
   Button,
   Select,
-  Input,
   MenuItem,
   FormControl,
   InputLabel
@@ -13,7 +12,8 @@ import {
 import {
   produceMelody,
   Resume,
-  Pause
+  Pause,
+  setPlayerTempo
 } from "../MelodyProduction/MelodyProduction";
 import "./interface.css";
 
@@ -22,6 +22,7 @@ function Generate() {
 
   const handleChange = event => {
     setTempo(event.target.value);
+    setPlayerTempo(tempo);
   };
   return (
     <div>

@@ -7,8 +7,7 @@ const melody = new mm.MusicRNN(
 let seqList = [];
 let position = 1;
 
-export function produceMelody(tempo) {
-  player.setTempo(tempo);
+export function produceMelody() {
   const a = Generate();
   const b = Generate();
   const c = Generate();
@@ -18,8 +17,7 @@ export function produceMelody(tempo) {
     });
     player.start(seqList[0]).then(() => {
       Replace(0);
-
-      Play(position, tempo);
+      Play(position);
     });
   });
 }
@@ -77,4 +75,7 @@ export function Pause() {
 }
 export function Resume() {
   player.resume();
+}
+export function setPlayerTempo(tempo) {
+  player.setTempo(tempo);
 }
