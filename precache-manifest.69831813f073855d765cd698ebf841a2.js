@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "cd56b91f94698e212aa12a9af301a6dd",
+    "revision": "f58d60bbcedff1ee472f948df2177d5b",
     "url": "/machine-music/index.html"
   },
   {
-    "revision": "372de6de1f4de8b81036",
+    "revision": "2a6de17889042a187d43",
     "url": "/machine-music/static/css/main.330e2d6b.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/machine-music/static/js/2.1b70a7ff.chunk.js.LICENSE"
   },
   {
-    "revision": "372de6de1f4de8b81036",
-    "url": "/machine-music/static/js/main.935814ef.chunk.js"
+    "revision": "2a6de17889042a187d43",
+    "url": "/machine-music/static/js/main.4c85565e.chunk.js"
   },
   {
     "revision": "0fae0097589ed419f1cd",
