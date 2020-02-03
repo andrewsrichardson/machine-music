@@ -59,10 +59,10 @@ function Generate() {
             tempo: "tempo"
           }}
         >
+          <MenuItem value={60}>60</MenuItem>
+          <MenuItem value={80}>80</MenuItem>
           <MenuItem value={100}>100</MenuItem>
           <MenuItem value={120}>120</MenuItem>
-          <MenuItem value={140}>140</MenuItem>
-          <MenuItem value={160}>160</MenuItem>
         </Select>
       </FormControl>
       <div className="play-controller-wrapper" onClick={handlePlayerChange}>
