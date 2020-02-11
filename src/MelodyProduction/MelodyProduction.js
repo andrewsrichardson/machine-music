@@ -4,7 +4,9 @@ const player = new mm.Player();
 const melody = new mm.MusicRNN(
   "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/melody_rnn"
 );
-let seqList = [];
+let cycleOne = [];
+let cycleTwo = [];
+let currentCycle = 1;
 let position = 1;
 
 export function produceMelody(setLoading) {
@@ -13,24 +15,52 @@ export function produceMelody(setLoading) {
   const b = Generate();
   const c = Generate();
 
-  Promise.all([a, b, c]).then(sequences => {
-    sequences.forEach(currentItem => {
-      seqList.push(currentItem);
-    });
-    setLoading(false);
-    player.start(seqList[0]).then(() => {
-      Replace(0);
-      Play(position);
+  Promise.all([a, b, c]).then(values => {
+    async function add() {
+      cycleOne.push(values[0], values[1], values[0], values[1]);
+      cycleOne.push(values[0], values[2], values[0], values[2]);
+      cycleOne.push(values[0], values[1], values[0], values[1]);
+      cycleOne.push(values[0], values[2], values[0], values[2]);
+      setLoading(false);
+    }
+    add().then(() => {
+      console.log(cycleOne);
+      player.start(cycleOne[0]).then(() => {
+        Play(position);
+      });
     });
   });
 }
 
 function Play(pos) {
-  player.start(seqList[pos]).then(() => {
-    Replace(pos);
-    position = (pos + 1) % 3;
-    Play(position);
-  });
+  if (currentCycle === 1) {
+    if (pos === 1) {
+      Replace(2);
+    }
+    player.start(cycleOne[pos]).then(() => {
+      position = (pos + 1) % 16;
+      if (position % 16 === 1) {
+        currentCycle = 2;
+        Play(position);
+      } else {
+        Play(position);
+      }
+    });
+  }
+  if (currentCycle === 2) {
+    if (pos === 1) {
+      Replace(1);
+    }
+    player.start(cycleTwo[pos]).then(() => {
+      position = (pos + 1) % 16;
+      if (position % 16 === 1) {
+        currentCycle = 1;
+        Play(position);
+      } else {
+        Play(position);
+      }
+    });
+  }
 }
 
 function Generate() {
@@ -66,11 +96,34 @@ function Generate() {
   });
 }
 
-function Replace(pos) {
-  let a = Generate();
-  a.then(seq => {
-    seqList[pos] = seq;
-  });
+function Replace(cycle) {
+  if (cycle === 2) {
+    cycleTwo = [];
+    const d = Generate();
+    const e = Generate();
+    const f = Generate();
+
+    Promise.all([d, e, f]).then(values => {
+      cycleTwo.push(values[0], values[1], values[0], values[1]);
+      cycleTwo.push(values[0], values[2], values[0], values[2]);
+      cycleTwo.push(values[0], values[1], values[0], values[1]);
+      cycleTwo.push(values[0], values[2], values[0], values[2]);
+      console.log(cycleTwo);
+    });
+  }
+  if (cycle === 1) {
+    cycleOne = [];
+    const a = Generate();
+    const b = Generate();
+    const c = Generate();
+
+    Promise.all([a, b, c]).then(values => {
+      cycleOne.push(values[0], values[1], values[0], values[1]);
+      cycleOne.push(values[0], values[2], values[0], values[2]);
+      cycleOne.push(values[0], values[1], values[0], values[1]);
+      cycleOne.push(values[0], values[2], values[0], values[2]);
+    });
+  }
 }
 
 export function Pause() {

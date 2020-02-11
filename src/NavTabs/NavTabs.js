@@ -15,7 +15,7 @@ export default function NavTabs(props) {
           textColor="primary"
           onChange={handleChange}
           aria-label="nav tabs"
-          centered="true"
+          centered={true}
         >
           <Tab label="Generate" />
           <Tab label="Train" disabled />
