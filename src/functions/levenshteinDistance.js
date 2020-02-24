@@ -7,8 +7,6 @@ export function levenshteinDistanceNoteVariance(a, b) {
   a.notes.forEach(note => aNotes.push(note.pitch));
   b.notes.forEach(note => bNotes.push(note.pitch));
 
-  console.log("A notes = " + aNotes);
-  console.log("B notes = " + bNotes);
   const distanceMatrix = Array(bNotes.length + 1)
     .fill(null)
     .map(() => Array(bNotes.length + 1).fill(null));
@@ -42,8 +40,6 @@ export function levenshteinDistanceNoteStartTimes(a, b) {
   a.notes.forEach(note => aNotes.push(note.quantizedStartStep));
   b.notes.forEach(note => bNotes.push(note.quantizedStartStep));
 
-  console.log("A start times = " + aNotes);
-  console.log("B start times = " + bNotes);
   const distanceMatrix = Array(bNotes.length + 1)
     .fill(null)
     .map(() => Array(bNotes.length + 1).fill(null));

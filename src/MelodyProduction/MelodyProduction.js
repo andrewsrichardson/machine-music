@@ -29,22 +29,6 @@ export function produceMelody(setLoading) {
       cycleOne.push(values[0], values[1], values[0], values[1]);
       cycleOne.push(values[0], values[2], values[0], values[2]);
       setLoading(false);
-
-      console.log(values[0].notes);
-
-      console.log(
-        "LD notes = " +
-          levenshteinDistanceNoteVariance(values[0], values[1]) +
-          "LD starts = " +
-          levenshteinDistanceNoteStartTimes(values[0], values[1])
-      );
-      console.log(
-        "fitness = " +
-          maximinFitness(
-            levenshteinDistanceNoteVariance(values[0], values[1]),
-            levenshteinDistanceNoteStartTimes(values[0], values[1])
-          )
-      );
     }
     add().then(() => {
       player.start(cycleOne[0]).then(() => {
@@ -125,49 +109,45 @@ function Replace(cycle) {
     let dFit, eFit, fFit;
     let d, e, f;
 
-    async function checkFitness(resolve, reject) {
+    function genAll() {
       d = Generate();
       e = Generate();
       f = Generate();
-      Promise.all([d, e, f]).then(values => {
-          dFit = maximinFitness(
-            levenshteinDistanceNoteVariance(values[0], cycleOne[0]),
-            levenshteinDistanceNoteStartTimes(values[0], cycleOne[0])
-          );
-          eFit = maximinFitness(
-            levenshteinDistanceNoteVariance(values[1], cycleOne[1]),
-            levenshteinDistanceNoteStartTimes(values[1], cycleOne[1])
-          );
-          fFit = maximinFitness(
-            levenshteinDistanceNoteVariance(values[2], cycleOne[2]),
-            levenshteinDistanceNoteStartTimes(values[2], cycleOne[2])
-          );
-          if (dFit > -4 && eFit > -4 && fFit > -4) {
-            cycleTwo.push(values[0], values[1], values[0], values[1]);
-            cycleTwo.push(values[0], values[2], values[0], values[2]);
-            cycleTwo.push(values[0], values[1], values[0], values[1]);
-            cycleTwo.push(values[0], values[2], values[0], values[2]);
-            console.log(cycleTwo);
-            unfit = false;
-          }
-          console.log("unfit scores = " + dFit + " " + eFit + " " + fFit);
-  })
-  new Promise((r, j) => {
-    checkFitness(r, j);
-  }).then((result) => {
 
-  })
-  }
-}
+      Promise.all([d, e, f]).then(values => {
+        dFit = maximinFitness(
+          levenshteinDistanceNoteVariance(values[0], cycleOne[0]),
+          levenshteinDistanceNoteStartTimes(values[0], cycleOne[0])
+        );
+        eFit = maximinFitness(
+          levenshteinDistanceNoteVariance(values[1], cycleOne[1]),
+          levenshteinDistanceNoteStartTimes(values[1], cycleOne[1])
+        );
+        fFit = maximinFitness(
+          levenshteinDistanceNoteVariance(values[2], cycleOne[2]),
+          levenshteinDistanceNoteStartTimes(values[2], cycleOne[2])
+        );
+        if (dFit > -5 && eFit > -5 && fFit > -5) {
+          cycleTwo.push(values[0], values[1], values[0], values[1]);
+          cycleTwo.push(values[0], values[2], values[0], values[2]);
+          cycleTwo.push(values[0], values[1], values[0], values[1]);
+          cycleTwo.push(values[0], values[2], values[0], values[2]);
+          console.log(cycleTwo);
+        } else {
+          console.log("unfit scores = " + dFit + " " + eFit + " " + fFit);
+          genAll();
+        }
+      });
+    }
+    genAll();
   }
   if (cycle === 1) {
     cycleOne = [];
-    let unfit = true;
-    console.log("i was looking at the wrong loop...");
-    while (unfit) {
-      const a = Generate();
-      const b = Generate();
-      const c = Generate();
+
+    function genAll() {
+      let a = Generate();
+      let b = Generate();
+      let c = Generate();
 
       Promise.all([a, b, c]).then(values => {
         let aFit = maximinFitness(
@@ -190,12 +170,15 @@ function Replace(cycle) {
           cycleOne.push(values[0], values[1], values[0], values[1]);
           cycleOne.push(values[0], values[2], values[0], values[2]);
           console.log(cycleOne);
-          unfit = false;
         }
         //FAILED
-        console.log("unfit scores = " + aFit + " " + bFit + " " + cFit);
+        else {
+          console.log("unfit scores = " + aFit + " " + bFit + " " + cFit);
+          genAll();
+        }
       });
     }
+    genAll();
   }
 }
 
