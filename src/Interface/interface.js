@@ -22,7 +22,7 @@ import LoadWheel from "./LoadWheel";
 function Generate() {
   const [loading, setLoading] = useState(false);
 
-  const [tempo, setTempo] = useState(140);
+  const [tempo, setTempo] = useState(60);
 
   const handleTempoChange = event => {
     setTempo(event.target.value);
@@ -51,8 +51,11 @@ function Generate() {
         Generate
       </Typography>
       <FormControl>
-        <InputLabel>Tempo</InputLabel>
+        <InputLabel id="label" value="60">
+          Tempo
+        </InputLabel>
         <Select
+          labelId="label"
           value={tempo}
           onChange={handleTempoChange}
           inputProps={{

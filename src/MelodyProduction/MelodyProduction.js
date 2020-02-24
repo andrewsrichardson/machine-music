@@ -4,10 +4,11 @@ import {
 } from "../functions/levenshteinDistance";
 import "../functions/maximinFitness";
 import maximinFitness from "../functions/maximinFitness";
+import Player from "../functions/player";
 
 const mm = require("@magenta/music");
 
-const player = new mm.Player();
+let player = new Player();
 const melody = new mm.MusicRNN(
   "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/melody_rnn"
 );
@@ -15,6 +16,7 @@ let cycleOne = [];
 let cycleTwo = [];
 let currentCycle = 1;
 let position = 1;
+let qpm = 60;
 
 export function produceMelody(setLoading) {
   setLoading(true);
@@ -31,7 +33,7 @@ export function produceMelody(setLoading) {
       setLoading(false);
     }
     add().then(() => {
-      player.start(cycleOne[0]).then(() => {
+      player.start(cycleOne[0], qpm).then(() => {
         Play(position);
       });
     });
@@ -43,12 +45,13 @@ function Play(pos) {
     if (pos === 1) {
       Replace(2);
     }
-    player.start(cycleOne[pos]).then(() => {
+    player.start(cycleOne[pos], qpm).then(() => {
       position = (pos + 1) % 16;
       if (position % 16 === 1) {
         currentCycle = 2;
         Play(position);
       } else {
+        console.log(position);
         Play(position);
       }
     });
@@ -57,7 +60,7 @@ function Play(pos) {
     if (pos === 1) {
       Replace(1);
     }
-    player.start(cycleTwo[pos]).then(() => {
+    player.start(cycleTwo[pos], qpm).then(() => {
       position = (pos + 1) % 16;
       if (position % 16 === 1) {
         currentCycle = 1;
@@ -163,16 +166,13 @@ function Replace(cycle) {
           levenshteinDistanceNoteStartTimes(values[2], cycleTwo[2])
         );
 
-        if (aFit > -4 && bFit > -4 && cFit > -4) {
-          //PASSED
+        if (aFit > -5 && bFit > -5 && cFit > -5) {
           cycleOne.push(values[0], values[1], values[0], values[1]);
           cycleOne.push(values[0], values[2], values[0], values[2]);
           cycleOne.push(values[0], values[1], values[0], values[1]);
           cycleOne.push(values[0], values[2], values[0], values[2]);
           console.log(cycleOne);
-        }
-        //FAILED
-        else {
+        } else {
           console.log("unfit scores = " + aFit + " " + bFit + " " + cFit);
           genAll();
         }
@@ -192,5 +192,5 @@ export function isPlayerInitiated() {
   return player.isPlaying();
 }
 export function setPlayerTempo(tempo) {
-  player.setTempo(tempo);
+  qpm = tempo;
 }
