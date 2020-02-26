@@ -5,36 +5,31 @@ export default class Player extends mm.BasePlayer {
   constructor() {
     super();
     this.bassSynth = new Tone.Synth({
-      volume: 5,
-      oscillator: { type: "sine" }
-    }).toMaster();
-
-    this.reverb = new Tone.Freeverb({
-      roomSize: 0.9,
-      dampening: 500
-    });
-
-    this.distortion = new Tone.Distortion({
-      distortion: 0.2,
-      oversample: "2x"
-    });
-
-    this.polySynth = new Tone.Synth({
-      oscillator: {
-        type: "sine",
-        modulationType: "sawtooth",
-        modulationIndex: 3,
-        harmonicity: 3.4
-      },
+      volume: 8,
+      oscillator: { type: "sine" },
       envelope: {
         attack: 0.4,
         decay: 0.1,
-        sustain: 0.5,
-        release: 0.4
+        sustain: 0.7,
+        release: 0.3
+      }
+    }).toMaster();
+
+    this.reverb = new Tone.Reverb();
+
+    this.polySynth = new Tone.Synth({
+      volume: 5,
+      oscillator: {
+        type: "sine"
+      },
+      envelope: {
+        attack: 0.4,
+        decay: 0.8,
+        sustain: 0.7,
+        release: 0.3
       }
     })
       .connect(this.reverb)
-      .connect(this.distortion)
       .toMaster();
     this.tone = Tone;
   }

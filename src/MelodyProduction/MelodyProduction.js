@@ -33,7 +33,8 @@ export function produceMelody(setLoading) {
       setLoading(false);
     }
     add().then(() => {
-      player.start(cycleOne[0], qpm).then(() => {
+      console.log(cycleOne);
+      player.start(cycleOne[0]).then(() => {
         Play(position);
       });
     });
@@ -45,13 +46,12 @@ function Play(pos) {
     if (pos === 1) {
       Replace(2);
     }
-    player.start(cycleOne[pos], qpm).then(() => {
+    player.start(cycleOne[pos]).then(() => {
       position = (pos + 1) % 16;
       if (position % 16 === 1) {
         currentCycle = 2;
         Play(position);
       } else {
-        console.log(position);
         Play(position);
       }
     });
@@ -60,7 +60,7 @@ function Play(pos) {
     if (pos === 1) {
       Replace(1);
     }
-    player.start(cycleTwo[pos], qpm).then(() => {
+    player.start(cycleTwo[pos]).then(() => {
       position = (pos + 1) % 16;
       if (position % 16 === 1) {
         currentCycle = 1;
@@ -79,7 +79,7 @@ function Generate() {
 
   let seq = {
     quantizationInfo: { stepsPerQuarter: 4 },
-    notes: [],
+    notes: [{ pitch: 63, quantizedStartStep: 12, quantizedEndStep: 16 }],
     totalQuantizedSteps: 1
   };
 

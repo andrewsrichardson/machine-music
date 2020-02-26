@@ -55,7 +55,7 @@ function Generate() {
           Tempo
         </InputLabel>
         <Select
-          labelId="label"
+          labelid="label"
           value={tempo}
           onChange={handleTempoChange}
           inputProps={{
