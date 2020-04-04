@@ -8,28 +8,43 @@ export default class Player extends mm.BasePlayer {
       volume: 8,
       oscillator: { type: "sine" },
       envelope: {
-        attack: 0.4,
-        decay: 0.1,
-        sustain: 0.7,
-        release: 0.3
+        attack: 0.2,
+        decay: 0.4,
+        sustain: 0.4,
+        release: 0.6
       }
     }).toMaster();
 
-    this.reverb = new Tone.Reverb();
+    this.autopanner = new Tone.AutoPanner({
+      frequency: 0.5,
+      type: "sine",
+      depth: 1
+    })
+      .toMaster()
+      .start();
+
+    this.reverb = new Tone.Reverb({
+      decay: 3,
+      wet: 1
+    }).toMaster();
+
+    this.AutoFilter = new Tone.AutoFilter().toMaster().start();
 
     this.polySynth = new Tone.Synth({
-      volume: 5,
+      volume: 12,
       oscillator: {
         type: "sine"
       },
       envelope: {
-        attack: 0.4,
+        attack: 10,
         decay: 0.8,
-        sustain: 0.7,
-        release: 0.3
+        sustain: 1,
+        release: 4
       }
     })
       .connect(this.reverb)
+      .connect(this.autopanner)
+      .connect(this.AutoFilter)
       .toMaster();
     this.tone = Tone;
   }

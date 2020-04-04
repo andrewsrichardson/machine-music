@@ -10,7 +10,9 @@ const mm = require("@magenta/music");
 
 let player = new Player();
 const melody = new mm.MusicRNN(
-  "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/melody_rnn"
+  // "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/melody_rnn"
+  // "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/chord_pitches_improv"
+  "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/basic_rnn"
 );
 let cycleOne = [];
 let cycleTwo = [];
@@ -79,7 +81,7 @@ function Generate() {
 
   let seq = {
     quantizationInfo: { stepsPerQuarter: 4 },
-    notes: [{ pitch: 63, quantizedStartStep: 12, quantizedEndStep: 16 }],
+    notes: [],
     totalQuantizedSteps: 1
   };
 
@@ -89,7 +91,7 @@ function Generate() {
         .continueSequence(
           seq,
           STEPS_PER_PROG + (NUM_REPS - 1) * STEPS_PER_PROG - 1,
-          0.9
+          0.5
         )
         .then(contSeq => {
           contSeq.notes.forEach(note => {
