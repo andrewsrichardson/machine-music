@@ -31,7 +31,7 @@ export default class Player extends mm.BasePlayer {
     this.AutoFilter = new Tone.AutoFilter().toMaster().start();
 
     this.polySynth = new Tone.Synth({
-      volume: 12,
+      volume: 5,
       oscillator: {
         type: "sine"
       },

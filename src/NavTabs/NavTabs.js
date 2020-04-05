@@ -17,9 +17,9 @@ export default function NavTabs(props) {
           aria-label="nav tabs"
           centered={true}
         >
-          <Tab label="Generate" />
-          <Tab label="Train" disabled />
-          <Tab label="About" disabled />
+          <Tab label="Generate 1" />
+          <Tab label="Generate 2" />
+          <Tab label="About" />
         </Tabs>
       </Paper>
     </div>

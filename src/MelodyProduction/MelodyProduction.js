@@ -10,8 +10,6 @@ const mm = require("@magenta/music");
 
 let player = new Player();
 const melody = new mm.MusicRNN(
-  // "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/melody_rnn"
-  // "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/chord_pitches_improv"
   "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/basic_rnn"
 );
 let cycleOne = [];
@@ -19,6 +17,7 @@ let cycleTwo = [];
 let currentCycle = 1;
 let position = 1;
 let qpm = 60;
+let threshold = -2;
 
 export function produceMelody(setLoading) {
   setLoading(true);
@@ -91,7 +90,7 @@ function Generate() {
         .continueSequence(
           seq,
           STEPS_PER_PROG + (NUM_REPS - 1) * STEPS_PER_PROG - 1,
-          0.5
+          0.6
         )
         .then(contSeq => {
           contSeq.notes.forEach(note => {
@@ -132,7 +131,7 @@ function Replace(cycle) {
           levenshteinDistanceNoteVariance(values[2], cycleOne[2]),
           levenshteinDistanceNoteStartTimes(values[2], cycleOne[2])
         );
-        if (dFit > -5 && eFit > -5 && fFit > -5) {
+        if (dFit > threshold && eFit > threshold && fFit > threshold) {
           cycleTwo.push(values[0], values[1], values[0], values[1]);
           cycleTwo.push(values[0], values[2], values[0], values[2]);
           cycleTwo.push(values[0], values[1], values[0], values[1]);
@@ -168,7 +167,7 @@ function Replace(cycle) {
           levenshteinDistanceNoteStartTimes(values[2], cycleTwo[2])
         );
 
-        if (aFit > -5 && bFit > -5 && cFit > -5) {
+        if (aFit > threshold && bFit > threshold && cFit > threshold) {
           cycleOne.push(values[0], values[1], values[0], values[1]);
           cycleOne.push(values[0], values[2], values[0], values[2]);
           cycleOne.push(values[0], values[1], values[0], values[1]);
@@ -195,4 +194,11 @@ export function isPlayerInitiated() {
 }
 export function setPlayerTempo(tempo) {
   qpm = tempo;
+}
+
+export function dispose() {
+  melody.dispose();
+  player.stop();
+  cycleOne = [];
+  cycleTwo = [];
 }

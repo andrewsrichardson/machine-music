@@ -13,8 +13,16 @@ import {
   setPlayerTempo,
   Pause,
   Resume,
-  isPlayerInitiated
+  isPlayerInitiated,
+  dispose
 } from "../MelodyProduction/MelodyProduction";
+import {
+  produceMelodyBasic,
+  PauseBasic,
+  ResumeBasic,
+  isPlayerInitiatedBasic,
+  disposeBasic
+} from "../MelodyProduction/BasicMelodyProduction";
 import "./interface.css";
 import PlayController from "./playController";
 import LoadWheel from "./LoadWheel";
@@ -32,6 +40,7 @@ function Generate() {
   const [playerState, setPlayerState] = useState(false);
 
   function handlePlayerChange() {
+    disposeBasic();
     if (playerState === true) {
       setPlayerState(false);
       Pause();
@@ -48,7 +57,7 @@ function Generate() {
   return (
     <div>
       <Typography variant="h1" component="h1">
-        Generate
+        Generate 1
       </Typography>
       <FormControl>
         <InputLabel id="label" value="60">
@@ -76,11 +85,61 @@ function Generate() {
   );
 }
 
-function Train() {
+function GenerateBasic() {
+  const [loading, setLoading] = useState(false);
+
+  // const [tempo, setTempo] = useState(60);
+
+  // const handleTempoChange = event => {
+  //   setTempo(event.target.value);
+  //   // setPlayerTempo(tempo);
+  // };
+
+  const [playerStateBasic, setPlayerStateBasic] = useState(false);
+
+  function handlePlayerChange() {
+    dispose();
+    if (playerStateBasic === true) {
+      setPlayerStateBasic(false);
+      PauseBasic();
+    }
+    if (playerStateBasic === false) {
+      setPlayerStateBasic(true);
+      if (isPlayerInitiatedBasic() === false) {
+        produceMelodyBasic(setLoading);
+      }
+      ResumeBasic();
+    }
+  }
+
   return (
-    <Typography variant="h1" component="h1">
-      Train
-    </Typography>
+    <div>
+      <Typography variant="h1" component="h1">
+        Generate 2
+      </Typography>
+      {/* <FormControl>
+        <InputLabel id="label" value="60">
+          Tempo
+        </InputLabel>
+        <Select
+          labelid="label"
+          value={tempo}
+          onChange={handleTempoChange}
+          inputProps={{
+            tempo: "tempo"
+          }}
+        >
+          <MenuItem value={60}>60</MenuItem>
+          <MenuItem value={80}>80</MenuItem>
+          <MenuItem value={100}>100</MenuItem>
+          <MenuItem value={120}>120</MenuItem>
+        </Select>
+      </FormControl> */}
+      <div className="play-controller-wrapper" onClick={handlePlayerChange}>
+        <PlayController state={playerStateBasic}></PlayController>
+      </div>
+      <LoadWheel loading={loading}></LoadWheel>
+    </div>
   );
 }
 
@@ -104,7 +163,7 @@ export default function Interface(props) {
     case 0:
       return <Generate />;
     case 1:
-      return <Train />;
+      return <GenerateBasic />;
     case 2:
       return <About />;
     default:
