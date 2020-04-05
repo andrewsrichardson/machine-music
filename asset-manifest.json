@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/machine-music/static/css/main.330e2d6b.chunk.css",
-    "main.js": "/machine-music/static/js/main.ad292452.chunk.js",
-    "main.js.map": "/machine-music/static/js/main.ad292452.chunk.js.map",
+    "main.js": "/machine-music/static/js/main.7b88f098.chunk.js",
+    "main.js.map": "/machine-music/static/js/main.7b88f098.chunk.js.map",
     "runtime-main.js": "/machine-music/static/js/runtime-main.6b173981.js",
     "runtime-main.js.map": "/machine-music/static/js/runtime-main.6b173981.js.map",
-    "static/js/2.f0d3da94.chunk.js": "/machine-music/static/js/2.f0d3da94.chunk.js",
-    "static/js/2.f0d3da94.chunk.js.map": "/machine-music/static/js/2.f0d3da94.chunk.js.map",
+    "static/js/2.bc18b2e4.chunk.js": "/machine-music/static/js/2.bc18b2e4.chunk.js",
+    "static/js/2.bc18b2e4.chunk.js.map": "/machine-music/static/js/2.bc18b2e4.chunk.js.map",
     "index.html": "/machine-music/index.html",
-    "precache-manifest.7914f3cc6842b8ec58f4b104e86118df.js": "/machine-music/precache-manifest.7914f3cc6842b8ec58f4b104e86118df.js",
+    "precache-manifest.238ef47484e2b4e6c8726e95491fa113.js": "/machine-music/precache-manifest.238ef47484e2b4e6c8726e95491fa113.js",
     "service-worker.js": "/machine-music/service-worker.js",
     "static/css/main.330e2d6b.chunk.css.map": "/machine-music/static/css/main.330e2d6b.chunk.css.map",
-    "static/js/2.f0d3da94.chunk.js.LICENSE": "/machine-music/static/js/2.f0d3da94.chunk.js.LICENSE"
+    "static/js/2.bc18b2e4.chunk.js.LICENSE": "/machine-music/static/js/2.bc18b2e4.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.6b173981.js",
-    "static/js/2.f0d3da94.chunk.js",
+    "static/js/2.bc18b2e4.chunk.js",
     "static/css/main.330e2d6b.chunk.css",
-    "static/js/main.ad292452.chunk.js"
+    "static/js/main.7b88f098.chunk.js"
   ]
 }
