@@ -1,5 +1,6 @@
 import React from "react";
 import { Paper, Tabs, Tab } from "@material-ui/core";
+import "./NavTabs.css";
 
 export default function NavTabs(props) {
   function handleChange(event, newValue) {
@@ -17,8 +18,8 @@ export default function NavTabs(props) {
           aria-label="nav tabs"
           centered={true}
         >
-          <Tab label="Generate 1" />
-          <Tab label="Generate 2" />
+          <Tab label="Generate" />
+          <Tab label="Generate 2" disabled />
           <Tab label="About" />
         </Tabs>
       </Paper>

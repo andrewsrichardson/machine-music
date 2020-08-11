@@ -1,27 +1,19 @@
 import React, { useState } from "react";
-import {
-  Typography,
-  Container,
-  Paper,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel
-} from "@material-ui/core";
+import { Typography, Container, Paper } from "@material-ui/core";
 import {
   produceMelody,
   setPlayerTempo,
   Pause,
   Resume,
   isPlayerInitiated,
-  dispose
+  dispose,
 } from "../MelodyProduction/MelodyProduction";
 import {
   produceMelodyBasic,
   PauseBasic,
   ResumeBasic,
   isPlayerInitiatedBasic,
-  disposeBasic
+  disposeBasic,
 } from "../MelodyProduction/BasicMelodyProduction";
 import "./interface.css";
 import PlayController from "./playController";
@@ -32,7 +24,7 @@ function Generate() {
 
   const [tempo, setTempo] = useState(60);
 
-  const handleTempoChange = event => {
+  const handleTempoChange = (event) => {
     setTempo(event.target.value);
     setPlayerTempo(tempo);
   };
@@ -55,31 +47,8 @@ function Generate() {
   }
 
   return (
-    <div>
-      <Typography variant="h1" component="h1">
-        Generate 1
-      </Typography>
-      <FormControl>
-        <InputLabel id="label" value="60">
-          Tempo
-        </InputLabel>
-        <Select
-          labelid="label"
-          value={tempo}
-          onChange={handleTempoChange}
-          inputProps={{
-            tempo: "tempo"
-          }}
-        >
-          <MenuItem value={60}>60</MenuItem>
-          <MenuItem value={80}>80</MenuItem>
-          <MenuItem value={100}>100</MenuItem>
-          <MenuItem value={120}>120</MenuItem>
-        </Select>
-      </FormControl>
-      <div className="play-controller-wrapper" onClick={handlePlayerChange}>
-        <PlayController state={playerState}></PlayController>
-      </div>
+    <div className="play-controller-wrapper" onClick={handlePlayerChange}>
+      <PlayController state={playerState}></PlayController>
       <LoadWheel loading={loading}></LoadWheel>
     </div>
   );
@@ -87,13 +56,6 @@ function Generate() {
 
 function GenerateBasic() {
   const [loading, setLoading] = useState(false);
-
-  // const [tempo, setTempo] = useState(60);
-
-  // const handleTempoChange = event => {
-  //   setTempo(event.target.value);
-  //   // setPlayerTempo(tempo);
-  // };
 
   const [playerStateBasic, setPlayerStateBasic] = useState(false);
 
@@ -117,24 +79,6 @@ function GenerateBasic() {
       <Typography variant="h1" component="h1">
         Generate 2
       </Typography>
-      {/* <FormControl>
-        <InputLabel id="label" value="60">
-          Tempo
-        </InputLabel>
-        <Select
-          labelid="label"
-          value={tempo}
-          onChange={handleTempoChange}
-          inputProps={{
-            tempo: "tempo"
-          }}
-        >
-          <MenuItem value={60}>60</MenuItem>
-          <MenuItem value={80}>80</MenuItem>
-          <MenuItem value={100}>100</MenuItem>
-          <MenuItem value={120}>120</MenuItem>
-        </Select>
-      </FormControl> */}
       <div className="play-controller-wrapper" onClick={handlePlayerChange}>
         <PlayController state={playerStateBasic}></PlayController>
       </div>
@@ -150,7 +94,9 @@ function About() {
         <Paper className="About" elevation="5">
           <Typography variant="h5" component="h5">
             Machine music was made by Andrew Richardson as a sumbission for my
-            final year project.
+            final year project. It uses Google's Magenta.js to produce a melody,
+            which is then evaluated by a custom fitness function and then
+            rejected or used based on similarity.
           </Typography>
         </Paper>
       </Container>
