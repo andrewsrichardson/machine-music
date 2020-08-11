@@ -9,6 +9,7 @@ import { blueGrey } from "@material-ui/core/colors";
 
 function App() {
   const [view, setView] = useState(0);
+  const [color, setColor] = useState(false);
 
   const theme = createMuiTheme({
     pallete: {
@@ -21,6 +22,14 @@ function App() {
     },
   });
 
+  let titleClass = "end title";
+
+  if (color == true) {
+    titleClass = "end title rainbow";
+  } else {
+    titleClass = "end title";
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
@@ -29,9 +38,14 @@ function App() {
         </div>
         <div className="Body">
           <NavTabs view={view} updateView={setView} />
-          <Interface view={view}></Interface>
+          <Interface view={view} updateColor={setColor}></Interface>
         </div>
-        <div className="Footer"></div>
+        <div className="Footer">
+          <h1 className={titleClass}>MUSIC</h1>
+          <a href="https://github.com/andrewsrichardson/" target="_blank">
+            made by andrewsrichardson
+          </a>
+        </div>
       </div>
     </ThemeProvider>
   );

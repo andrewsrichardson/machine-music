@@ -1,6 +1,6 @@
 import {
   levenshteinDistanceNoteVariance,
-  levenshteinDistanceNoteStartTimes
+  levenshteinDistanceNoteStartTimes,
 } from "../functions/levenshteinDistance";
 import "../functions/maximinFitness";
 import maximinFitness from "../functions/maximinFitness";
@@ -25,7 +25,7 @@ export function produceMelody(setLoading) {
   const b = Generate();
   const c = Generate();
 
-  Promise.all([a, b, c]).then(values => {
+  Promise.all([a, b, c]).then((values) => {
     async function add() {
       cycleOne.push(values[0], values[1], values[0], values[1]);
       cycleOne.push(values[0], values[2], values[0], values[2]);
@@ -81,7 +81,7 @@ function Generate() {
   let seq = {
     quantizationInfo: { stepsPerQuarter: 4 },
     notes: [],
-    totalQuantizedSteps: 1
+    totalQuantizedSteps: 1,
   };
 
   return new Promise((resolve, reject) => {
@@ -92,8 +92,8 @@ function Generate() {
           STEPS_PER_PROG + (NUM_REPS - 1) * STEPS_PER_PROG - 1,
           0.6
         )
-        .then(contSeq => {
-          contSeq.notes.forEach(note => {
+        .then((contSeq) => {
+          contSeq.notes.forEach((note) => {
             note.quantizedStartStep += 1;
             note.quantizedEndStep += 1;
             seq.notes.push(note);
@@ -118,7 +118,7 @@ function Replace(cycle) {
       e = Generate();
       f = Generate();
 
-      Promise.all([d, e, f]).then(values => {
+      Promise.all([d, e, f]).then((values) => {
         dFit = maximinFitness(
           levenshteinDistanceNoteVariance(values[0], cycleOne[0]),
           levenshteinDistanceNoteStartTimes(values[0], cycleOne[0])
@@ -153,7 +153,7 @@ function Replace(cycle) {
       let b = Generate();
       let c = Generate();
 
-      Promise.all([a, b, c]).then(values => {
+      Promise.all([a, b, c]).then((values) => {
         let aFit = maximinFitness(
           levenshteinDistanceNoteVariance(values[0], cycleTwo[0]),
           levenshteinDistanceNoteStartTimes(values[0], cycleTwo[0])
