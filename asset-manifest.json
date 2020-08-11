@@ -1,22 +1,26 @@
 {
   "files": {
-    "main.css": "/machine-music/static/css/main.330e2d6b.chunk.css",
-    "main.js": "/machine-music/static/js/main.6ea678b6.chunk.js",
-    "main.js.map": "/machine-music/static/js/main.6ea678b6.chunk.js.map",
+    "main.css": "/machine-music/static/css/main.bbd61f3b.chunk.css",
+    "main.js": "/machine-music/static/js/main.122725b6.chunk.js",
+    "main.js.map": "/machine-music/static/js/main.122725b6.chunk.js.map",
     "runtime-main.js": "/machine-music/static/js/runtime-main.6b173981.js",
     "runtime-main.js.map": "/machine-music/static/js/runtime-main.6b173981.js.map",
-    "static/js/2.740d9eae.chunk.js": "/machine-music/static/js/2.740d9eae.chunk.js",
-    "static/js/2.740d9eae.chunk.js.map": "/machine-music/static/js/2.740d9eae.chunk.js.map",
+    "static/css/2.2f6d4a42.chunk.css": "/machine-music/static/css/2.2f6d4a42.chunk.css",
+    "static/js/2.8acea5b0.chunk.js": "/machine-music/static/js/2.8acea5b0.chunk.js",
+    "static/js/2.8acea5b0.chunk.js.map": "/machine-music/static/js/2.8acea5b0.chunk.js.map",
     "index.html": "/machine-music/index.html",
-    "precache-manifest.0c03a97488d32fe8c5471808d5b82213.js": "/machine-music/precache-manifest.0c03a97488d32fe8c5471808d5b82213.js",
+    "precache-manifest.bbbe712dc8b6c409078abba14229f87c.js": "/machine-music/precache-manifest.bbbe712dc8b6c409078abba14229f87c.js",
     "service-worker.js": "/machine-music/service-worker.js",
-    "static/css/main.330e2d6b.chunk.css.map": "/machine-music/static/css/main.330e2d6b.chunk.css.map",
-    "static/js/2.740d9eae.chunk.js.LICENSE": "/machine-music/static/js/2.740d9eae.chunk.js.LICENSE"
+    "static/css/2.2f6d4a42.chunk.css.map": "/machine-music/static/css/2.2f6d4a42.chunk.css.map",
+    "static/css/main.bbd61f3b.chunk.css.map": "/machine-music/static/css/main.bbd61f3b.chunk.css.map",
+    "static/js/2.8acea5b0.chunk.js.LICENSE": "/machine-music/static/js/2.8acea5b0.chunk.js.LICENSE",
+    "static/media/index.css": "/machine-music/static/media/cairo-latin-ext-400-normal.268bbad6.woff2"
   },
   "entrypoints": [
     "static/js/runtime-main.6b173981.js",
-    "static/js/2.740d9eae.chunk.js",
-    "static/css/main.330e2d6b.chunk.css",
-    "static/js/main.6ea678b6.chunk.js"
+    "static/css/2.2f6d4a42.chunk.css",
+    "static/js/2.8acea5b0.chunk.js",
+    "static/css/main.bbd61f3b.chunk.css",
+    "static/js/main.122725b6.chunk.js"
   ]
 }
